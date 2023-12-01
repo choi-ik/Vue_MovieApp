@@ -1,6 +1,6 @@
 @mixin font {
   font-size: 20px;
-  font-weight: 600;
+  font-weight: 400;
   font-family:
     'Pretendard Variable',
     Pretendard,
@@ -20,5 +20,7 @@
 }
 
 body {
+  // html 변수
+  --border-color: #ddd;
   @include font;
 }
