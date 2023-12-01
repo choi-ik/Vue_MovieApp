@@ -1,12 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import Main from './Main.vue';
+import MainPage from './MainPage.vue';
 
 export default createRouter({
   history: createWebHistory(),
   routes: [
     {
       path: '/',
-      component: Main
+      component: MainPage
     }
   ]
 });
