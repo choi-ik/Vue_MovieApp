@@ -1,24 +1,28 @@
-import axios from 'axios';
 import type { VercelRequest, VercelResponse } from '@vercel/node';
+import axios from 'axios';
 
-export default function (req: VercelRequest, res: VercelResponse) {
-  const { title = '', page = 1, method, data } = req.body;
+/* 영화 목록 검색 
+  apikey 필수
+  s(영화 제목) 필수
+  page(페이지) 기본값 1
+  y(영화 출시 년도) 기본값 X
+*/
 
-  /* 요청 주소에 들어가야 할 요청 
-  영화 목록 검색
-    apikey 필수
-    s(영화 제목) 필수
-    page(페이지) 기본값 1
-    y(영화 출시 년도) 기본값 X 
+const { APIKEY } = process.env;
 
-  영화 상세 검색
-    i(검색할 영화 아이디) 필수
-    plot(영화 줄거리 길이) 기본값 short
-  */
-  axios({
-    url: `https://omdbapi.com?apikey=${title}`,
-    method: '',
-    headers: {},
-    data: {}
+interface SearchValue {
+  title: string;
+  page?: string;
+  year?: string;
+}
+
+export default async function (req: VercelRequest, res: VercelResponse) {
+  const { title, page, year } = req.body as SearchValue;
+
+  const { data: responseValue } = await axios({
+    url: `https://omdbapi.com?apikey=${APIKEY}&s=${title}&y=${year}&=page${page}`,
+    method: 'GET'
   });
+
+  res.status(200).json(responseValue);
 }
