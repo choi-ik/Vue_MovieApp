@@ -1,9 +1,14 @@
 <script setup lang="ts">
+interface ModelValue {
+  Poster: string;
+  Title: string;
+  Person: string;
+  Type: string;
+  Year: string;
+  imdbID: string;
+}
 const props = defineProps<{
-  modelValue: {
-    type: string[];
-    required: true;
-  };
+  modelValue: ModelValue;
 }>();
 
 console.log(props.modelValue);
@@ -15,11 +20,15 @@ console.log(props.modelValue);
       :src="modelValue.Poster"
       alt="movieImg" />
     <div class="movieContent">
-      <div
+      <template
         v-for="(value, key) in modelValue"
         :key="key">
-        {{ key }}: {{ value }}
-      </div>
+        <div
+          v-if="key !== 'Poster' && key !== 'imdbID' && key !== 'Type'"
+          class="content">
+          {{ key }}: {{ value }}
+        </div>
+      </template>
     </div>
   </div>
 </template>
@@ -29,17 +38,12 @@ console.log(props.modelValue);
   width: 180px;
   height: 300px;
   margin: 10px 20px 10px 20px;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-  box-shadow:
-    4px 0px 20px 10px rgba(#000, 0.1),
-    4px 0px 20px 10px rgba(#000, 0.2);
+  border-radius: 20px 20px 20px 20px;
+  box-shadow: 4px 0px 20px 10px rgba(#000, 0.2);
 }
 img {
   width: 180px;
   height: 200px;
-  border-radius: 20px 20px 0 0;
 }
 .movieContent {
   background-color: white;
@@ -49,6 +53,11 @@ img {
   box-sizing: border-box;
   color: black;
   font-size: 15px;
-  border-radius: 0 0 20px 20px;
+  .content {
+    margin: 10px 5px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
 }
 </style>
