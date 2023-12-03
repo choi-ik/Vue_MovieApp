@@ -31,6 +31,8 @@ export const useMoiveStore = defineStore('movies', {
         page,
         year
       });
+
+      await this.imageOptimization('movie', data.Search);
       this.movieData = data;
       this.isLoading = false;
     },
@@ -46,8 +48,26 @@ export const useMoiveStore = defineStore('movies', {
         plot
       });
 
+      data.Poster = await this.imageOptimization('detail', data.Poster);
+      console.log(data);
+
       this.detailMovieData = data;
       this.isLoading = false;
+    },
+    // 이미지 최적화 함수
+    imageOptimization(
+      keyword: string,
+      data: { [key: string]: string }[] | string
+    ) {
+      if (keyword === 'movie' && typeof data === 'object') {
+        for (const key of data) {
+          key.Poster = key.Poster.replace(/SX300/, 'SX700');
+        }
+      } else if (keyword === 'detail' && typeof data === 'string') {
+        data = data.replace(/SX300/, 'SX700');
+
+        return data;
+      }
     }
   }
 });
