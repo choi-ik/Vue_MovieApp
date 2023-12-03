@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, onMounted, onUnmounted } from 'vue';
 
 interface responseDetailMovie {
   [key: string]: string;
@@ -28,6 +28,18 @@ const detailData = ref<MovieData>({
   Poster: '',
   Released: '',
   Runtime: ''
+});
+
+onMounted(() => {
+  if (props.modelValue) {
+    window.addEventListener('keydown', closeModal);
+    window.addEventListener('click', closeModal);
+  }
+});
+
+onUnmounted(() => {
+  window.removeEventListener('keydown', closeModal);
+  window.removeEventListener('click', closeModal);
 });
 
 const props = defineProps<{
@@ -64,14 +76,14 @@ detailData.value = {
 // 모달창 제거 함수
 const closeModal = (event: MouseEvent | KeyboardEvent) => {
   if (event.target === outerModal.value) emit('update:modelValue', false);
+  else if (event.key === 'Escape') emit('update:modelValue', false);
 };
 </script>
 
 <template>
   <div
     ref="outerModal"
-    class="modal-outer"
-    @click="closeModal">
+    class="modal-outer">
     <div class="modal-inner">
       <img
         :src="responseDetail.Poster"
