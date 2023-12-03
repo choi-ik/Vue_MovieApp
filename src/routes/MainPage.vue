@@ -9,7 +9,6 @@ const movieStore = useMoiveStore();
 
 watch(movieStore, () => {
   movieData.value = movieStore.movieData.Search;
-  console.log(movieData.value);
 });
 </script>
 
@@ -26,12 +25,20 @@ watch(movieStore, () => {
 </template>
 
 <style lang="scss" scoped>
+main {
+  display: flex;
+  flex-direction: column;
+}
 .showmovie {
+  width: 100%;
+  height: calc(100vh - 140px);
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  padding: 50px 150px 0px 150px;
+  margin-top: 20px;
+  padding: 50px 150px 30px 150px;
   box-sizing: border-box;
+  overflow-y: scroll;
 }
 </style>

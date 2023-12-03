@@ -1,4 +1,12 @@
 <script setup lang="ts">
+import TheModal from '~/components/TheModal.vue';
+import { useMoiveStore } from '~/store/movies';
+import { ref } from 'vue';
+
+const detailMovieStore = useMoiveStore();
+const detailMovieContent = ref({});
+const isModalOpen = ref(false);
+
 interface ModelValue {
   Poster: string;
   Title: string;
@@ -7,11 +15,17 @@ interface ModelValue {
   Year: string;
   imdbID: string;
 }
-const props = defineProps<{
+
+defineProps<{
   modelValue: ModelValue;
 }>();
 
-console.log(props.modelValue);
+// 영화 상세 내용 검색
+const detailSearchMovie = async (movieId: string) => {
+  await detailMovieStore.detailSearchMovie({ movieId });
+
+  detailMovieContent.value = detailMovieStore.detailMovieData;
+};
 </script>
 
 <template>
@@ -29,6 +43,19 @@ console.log(props.modelValue);
           {{ key }}: {{ value }}
         </div>
       </template>
+      <button
+        @click="
+          async () => {
+            await detailSearchMovie(modelValue.imdbID);
+            isModalOpen = true;
+          }
+        ">
+        더 보기
+      </button>
+      <TheModal
+        v-if="isModalOpen"
+        v-model="isModalOpen"
+        :response-detail="detailMovieContent" />
     </div>
   </div>
 </template>
@@ -58,6 +85,9 @@ img {
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
+  }
+  button {
+    cursor: pointer;
   }
 }
 </style>

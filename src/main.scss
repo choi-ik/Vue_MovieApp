@@ -19,12 +19,38 @@
     sans-serif;
 }
 
+/* 스크롤 함수 */
+@mixin scroll() {
+  &::-webkit-scrollbar {
+    width: 5px;
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #787878;
+    border-radius: 40px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+}
+
 body {
   // html 변수
   --border-color: #ddd;
+  height: 100vh;
   background-image: linear-gradient(125deg, black, #b4b4b4);
   min-height: 100vh;
   padding-top: 80px;
   box-sizing: border-box;
+  overflow: hidden;
   @include font;
+  .showmovie {
+    @include scroll();
+  }
 }
