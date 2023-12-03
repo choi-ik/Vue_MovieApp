@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import TheIcon from '~/components/TheIcon.vue';
+import TheLoading from '~/components/TheLoading.vue';
 import { useMoiveStore } from '~/store/movies';
 import { ref } from 'vue';
 
@@ -21,7 +22,8 @@ const searchMovie = async (event: MouseEvent | KeyboardEvent) => {
 
 <template>
   <section>
-    <TheIcon>search</TheIcon>
+    <TheLoading v-if="movieStore.isLoading" />
+    <TheIcon v-else>search</TheIcon>
     <input
       :value="movieTitle"
       placeholder="영화 제목을 입력하세요."
@@ -38,7 +40,14 @@ section {
   left: 0;
   right: 0;
   margin: auto;
-
+  :deep(.the-loader) {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    left: 15px;
+    z-index: 1;
+  }
   :deep(.the-icon) {
     position: absolute;
     top: 0;
