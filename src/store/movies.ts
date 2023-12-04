@@ -38,7 +38,7 @@ export const useMoiveStore = defineStore('movies', {
 
       const { data } = await axios.post('/api/movieSearch', {
         title,
-        page: this.pageCount,
+        page: String(this.pageCount),
         year
       });
 
