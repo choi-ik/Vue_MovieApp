@@ -35,12 +35,10 @@ export const useMoiveStore = defineStore('movies', {
 
       this.userInputTitle = title;
       this.isLoading = true;
-
-      const { data } = await axios.post('/api/movieSearch', {
+      const { data } = await axios.post('/api/MovieSearch', {
         title,
         page: String(this.pageCount)
       });
-
       await this.imageOptimization('movie', data.Search);
 
       this.movieData = [...this.movieData, ...data.Search];
