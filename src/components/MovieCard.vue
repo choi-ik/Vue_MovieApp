@@ -9,13 +9,9 @@ const isModalOpen = ref(false);
 const $card = ref(null);
 
 interface ModelValue {
-  Poster: string;
-  Title: string;
-  Person: string;
-  Type: string;
-  Year: string;
-  imdbID: string;
+  [key: string]: string;
 }
+[];
 
 const props = defineProps<{
   modelValue: ModelValue;
