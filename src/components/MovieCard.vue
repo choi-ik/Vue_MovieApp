@@ -13,7 +13,7 @@ interface ModelValue {
 }
 [];
 
-const props = defineProps<{
+defineProps<{
   modelValue: ModelValue;
 }>();
 
