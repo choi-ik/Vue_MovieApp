@@ -1,6 +1,5 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import axios from 'axios';
-
 /* 영화 목록 검색 
   apikey 필수
   i(영화 id) 필수
