@@ -24,7 +24,7 @@ export const useMoiveStore = defineStore('movies', {
   getters: {},
   actions: {
     // 영화 제목 검색
-    async searchMovies({ title, year = '' }: SearchMoviePayload) {
+    async searchMovies({ title }: SearchMoviePayload) {
       // 로딩중 일때는 API 요청 X
       if (this.isLoading) return;
       // 영화 제목이 다를 시 페이지 카운팅 초기화
@@ -38,8 +38,7 @@ export const useMoiveStore = defineStore('movies', {
 
       const { data } = await axios.post('/api/movieSearch', {
         title,
-        page: String(this.pageCount),
-        year
+        page: String(this.pageCount)
       });
 
       await this.imageOptimization('movie', data.Search);
