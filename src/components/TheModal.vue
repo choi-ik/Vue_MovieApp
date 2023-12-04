@@ -122,7 +122,7 @@ const closeModal = (event: MouseEvent | KeyboardEvent) => {
 
     img {
       width: 100%;
-      height: 60%;
+      height: 90%;
     }
     .detail-content {
       background-color: white;

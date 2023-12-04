@@ -15,26 +15,39 @@ interface DetailSearchMovie {
 export const useMoiveStore = defineStore('movies', {
   state: () => ({
     movieData: [], // 영화 데이터
+    totalResults: 0, // 해당 제목 총 영화 개수
     detailMovieData: {}, // 영화 상세 데이터
-    isLoading: false
+    isLoading: false,
+    userInputTitle: '', // 사용자가 입력한 영화 제목
+    pageCount: 0 // 현재 페이지 수
   }),
   getters: {},
   actions: {
     // 영화 제목 검색
-    async searchMovies({ title, page = '', year = '' }: SearchMoviePayload) {
+    async searchMovies({ title, year = '' }: SearchMoviePayload) {
       // 로딩중 일때는 API 요청 X
       if (this.isLoading) return;
+      // 영화 제목이 다를 시 페이지 카운팅 초기화
+      if (this.userInputTitle !== title) {
+        this.movieData = [];
+        this.pageCount = 1;
+      }
 
+      this.userInputTitle = title;
       this.isLoading = true;
+
       const { data } = await axios.post('/api/movieSearch', {
         title,
-        page,
+        page: this.pageCount,
         year
       });
 
       await this.imageOptimization('movie', data.Search);
-      this.movieData = data;
+
+      this.movieData = [...this.movieData, ...data.Search];
+      this.totalResults = data.totalResults;
       this.isLoading = false;
+      this.pageCount += 1;
     },
     // 영화 상세 정보 검색
     async detailSearchMovie({ movieId, plot = 'short' }: DetailSearchMovie) {
@@ -49,7 +62,6 @@ export const useMoiveStore = defineStore('movies', {
       });
 
       data.Poster = await this.imageOptimization('detail', data.Poster);
-      console.log(data);
 
       this.detailMovieData = data;
       this.isLoading = false;

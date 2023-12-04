@@ -20,7 +20,7 @@ export default async function (req: VercelRequest, res: VercelResponse) {
   const { title, page, year } = req.body as SearchValue;
 
   const { data: responseValue } = await axios({
-    url: `https://omdbapi.com?apikey=${APIKEY}&s=${title}&y=${year}&=page${page}`,
+    url: `https://omdbapi.com?apikey=${APIKEY}&s=${title}&y=${year}&page=${page}`,
     method: 'GET'
   });
 

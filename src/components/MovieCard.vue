@@ -6,6 +6,7 @@ import { ref } from 'vue';
 const detailMovieStore = useMoiveStore();
 const detailMovieContent = ref({});
 const isModalOpen = ref(false);
+const $card = ref(null);
 
 interface ModelValue {
   Poster: string;
@@ -29,7 +30,9 @@ const detailSearchMovie = async (movieId: string) => {
 </script>
 
 <template>
-  <div class="card">
+  <div
+    ref="$card"
+    class="card">
     <img
       :src="modelValue.Poster"
       alt="movieImg" />
