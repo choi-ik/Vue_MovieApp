@@ -18,9 +18,9 @@ watch(
       $target.value = $section.value.querySelector('.card:last-child');
 
       if ($target.value !== null) {
-        if ($lastLi !== null) observer.value.unobserve($target.value);
+        if ($lastLi !== null) observer.value?.unobserve($target.value);
         $lastLi = $target.value;
-        observer.value.observe($lastLi);
+        observer.value?.observe($lastLi);
       }
     }, 0);
   }

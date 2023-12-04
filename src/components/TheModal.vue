@@ -17,7 +17,7 @@ interface MovieData {
   Runtime: string;
 }
 
-const outerModal = ref(HTMLDivElement);
+const outerModal = ref(null);
 const detailData = ref<MovieData>({
   Title: '',
   Year: '',
@@ -75,8 +75,10 @@ detailData.value = {
 
 // 모달창 제거 함수
 const closeModal = (event: MouseEvent | KeyboardEvent) => {
-  if (event.target === outerModal.value) emit('update:modelValue', false);
-  else if (event.key === 'Escape') emit('update:modelValue', false);
+  if (event instanceof MouseEvent && event.target === outerModal.value)
+    emit('update:modelValue', false);
+  else if (event instanceof KeyboardEvent && event.key === 'Escape')
+    emit('update:modelValue', false);
 };
 </script>
 

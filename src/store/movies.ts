@@ -14,7 +14,7 @@ interface DetailSearchMovie {
 
 export const useMoiveStore = defineStore('movies', {
   state: () => ({
-    movieData: [], // 영화 데이터
+    movieData: [] as { [key: string]: string }[], // 영화 데이터
     totalResults: 0, // 해당 제목 총 영화 개수
     detailMovieData: {}, // 영화 상세 데이터
     isLoading: false,
@@ -48,6 +48,7 @@ export const useMoiveStore = defineStore('movies', {
       this.totalResults = data.totalResults;
       this.isLoading = false;
       this.pageCount += 1;
+      console.log(this.movieData);
     },
     // 영화 상세 정보 검색
     async detailSearchMovie({ movieId, plot = 'short' }: DetailSearchMovie) {
