@@ -18,7 +18,10 @@ interface SearchValue {
 
 export default async function (req: VercelRequest, res: VercelResponse) {
   const { title, page, year } = req.body as SearchValue;
-
+  console.log(title, page, year);
+  console.log(
+    `https://omdbapi.com?apikey=${APIKEY}&s=${title}&y=${year}&page=${page}`
+  );
   const { data: responseValue } = await axios({
     url: `https://omdbapi.com?apikey=${APIKEY}&s=${title}&y=${year}&page=${page}`,
     method: 'GET',
