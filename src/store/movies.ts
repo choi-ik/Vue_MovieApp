@@ -48,7 +48,6 @@ export const useMoiveStore = defineStore('movies', {
       this.totalResults = data.totalResults;
       this.isLoading = false;
       this.pageCount += 1;
-      console.log(this.movieData);
     },
     // 영화 상세 정보 검색
     async detailSearchMovie({ movieId, plot = 'short' }: DetailSearchMovie) {

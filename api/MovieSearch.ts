@@ -21,7 +21,10 @@ export default async function (req: VercelRequest, res: VercelResponse) {
 
   const { data: responseValue } = await axios({
     url: `https://omdbapi.com?apikey=${APIKEY}&s=${title}&y=${year}&page=${page}`,
-    method: 'GET'
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    }
   });
 
   res.status(200).json(responseValue);

@@ -16,7 +16,7 @@ interface ModelValue {
 const props = defineProps<{
   modelValue: ModelValue;
 }>();
-console.log(props.modelValue);
+
 // 영화 상세 내용 검색
 const detailSearchMovie = async (movieId: string) => {
   await detailMovieStore.detailSearchMovie({ movieId });
